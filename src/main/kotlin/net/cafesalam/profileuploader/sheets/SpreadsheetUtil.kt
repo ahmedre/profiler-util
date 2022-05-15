@@ -1,4 +1,4 @@
-package net.cafesalam.profileuploader
+package net.cafesalam.profileuploader.sheets
 
 import com.google.api.services.sheets.v4.Sheets
 import com.google.api.services.sheets.v4.model.AppendValuesResponse

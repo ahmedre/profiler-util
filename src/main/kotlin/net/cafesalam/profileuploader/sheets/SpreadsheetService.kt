@@ -1,4 +1,4 @@
-package net.cafesalam.profileuploader
+package net.cafesalam.profileuploader.sheets
 
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
 import com.google.api.client.json.gson.GsonFactory
@@ -6,6 +6,7 @@ import com.google.api.services.sheets.v4.Sheets
 import com.google.api.services.sheets.v4.SheetsScopes
 import com.google.auth.http.HttpCredentialsAdapter
 import com.google.auth.oauth2.GoogleCredentials
+import net.cafesalam.profileuploader.Main
 import java.io.FileNotFoundException
 
 class SpreadsheetService {

@@ -2,6 +2,8 @@ package net.cafesalam.profileuploader
 
 import com.google.api.services.sheets.v4.Sheets
 import net.cafesalam.profileuploader.benchmark.BenchmarkParser
+import net.cafesalam.profileuploader.sheets.SpreadsheetService
+import net.cafesalam.profileuploader.sheets.SpreadsheetUtil
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.TimeZone
@@ -25,8 +27,8 @@ class Main {
   }
 
   fun parseAndWriteBenchmarks(sheetsService: Sheets, file: String, gitHash: String) {
-    val range = "Sheet1!A1"
-    val spreadsheetId = "1DDdAZ_FFw9QMlRqfwnxoYY-XqJglnHWz9oG1Qjo2A2c"
+    val spreadsheetId = Constants.spreadsheetId
+    val range = Constants.spreadsheetWriteRange
 
     val benchmarkParser = BenchmarkParser()
     val results = benchmarkParser.parseBenchmarkResults(file)
