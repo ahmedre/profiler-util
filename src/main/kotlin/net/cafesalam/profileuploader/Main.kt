@@ -1,6 +1,7 @@
 package net.cafesalam.profileuploader
 
 import com.google.api.services.sheets.v4.Sheets
+import net.cafesalam.profileuploader.benchmark.BenchmarkChecker
 import net.cafesalam.profileuploader.benchmark.BenchmarkParser
 import net.cafesalam.profileuploader.sheets.SpreadsheetService
 import net.cafesalam.profileuploader.sheets.SpreadsheetUtil
@@ -10,18 +11,52 @@ import java.util.TimeZone
 
 
 class Main {
-  fun readSheet(sheetsService: Sheets) {
-    // Google public test spreadsheet for reading
-    val spreadsheetId = "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms"
-    val range = "Class Data!A2:E"
+  fun checkForNotableDelta(sheetsService: Sheets, width: Int, threshold: Int) {
+    val spreadsheetId = Constants.spreadsheetId
+    val range = Constants.spreadsheetDataRange
 
     val responseValues = SpreadsheetUtil.readRangeFromSheet(sheetsService, spreadsheetId, range)
     if (responseValues.isEmpty()) {
       println("No data found")
     } else {
-      println("Name, Major")
       responseValues.forEach { row ->
-        println("${row[0]}, ${row[4]}")
+        println(row)
+      }
+
+      val numberOfRunsToConsider = 1 + (2 * width)
+      if (responseValues.size >= numberOfRunsToConsider) {
+        val runsToConsider = responseValues.subList(
+          fromIndex = responseValues.size - numberOfRunsToConsider,
+          toIndex = responseValues.size
+        )
+
+        val before = runsToConsider.take(width)
+        val after = runsToConsider.takeLast(width)
+
+        val scenariosRow = responseValues.first()
+        val mergeToConsider = runsToConsider[width]
+
+        val results = BenchmarkChecker.checkResults(before, after, threshold)
+        results.forEachIndexed { index, scenarioResult ->
+          // date, git hash
+          val scenariosOffset = 2
+          val gitHash = mergeToConsider[1]
+          val scenario = scenariosRow[index + scenariosOffset]
+
+          when (scenarioResult) {
+            BenchmarkStep.REGRESSION -> {
+              println("commit $gitHash showed a regression for $scenario.")
+            }
+            BenchmarkStep.IMPROVEMENT -> {
+              println("commit $gitHash showed an improvement for $scenario.")
+            }
+            BenchmarkStep.NO_CHANGE -> {
+              println("commit $gitHash showed no change for $scenario.")
+            }
+          }
+        }
+      } else {
+        println("Not enough data to analyze")
       }
     }
   }
@@ -46,9 +81,20 @@ class Main {
 fun main(args: Array<String>) {
   val sheetsService = SpreadsheetService().getSheetsClient()
   if (args.size == 2) {
+    val firstParam = args.first()
+    val secondParam = args.last()
+
     val main = Main()
-    main.parseAndWriteBenchmarks(sheetsService, args.first(), args.last())
+    val width = firstParam.toIntOrNull()
+    val threshold = secondParam.toIntOrNull()
+    if (width != null && threshold != null) {
+      main.checkForNotableDelta(sheetsService, width, threshold)
+    } else {
+      main.parseAndWriteBenchmarks(sheetsService, args.first(), args.last())
+    }
   } else {
     println("usage: ./gradlew run --args \"<path> <gitHash>\"")
+    println(" OR")
+    println("usage: ./gradlew run --args \"<width> <threshold>\"")
   }
 }
