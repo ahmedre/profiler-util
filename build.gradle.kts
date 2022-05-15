@@ -17,6 +17,8 @@ repositories {
 }
 
 dependencies {
+  implementation("com.squareup.okio:okio:3.1.0")
+
   // force update commons-codec to work around CVE in 1.11 (transitive dep to google-api-client).
   implementation("commons-codec:commons-codec:1.15")
   implementation("com.google.api-client:google-api-client:1.34.0")
