@@ -1,17 +1,13 @@
 package net.cafesalam.profileuploader.task
 
 import com.google.api.services.sheets.v4.Sheets
-import net.cafesalam.profileuploader.benchmark.BenchmarkStep
-import net.cafesalam.profileuploader.util.Constants
 import net.cafesalam.profileuploader.benchmark.BenchmarkChecker
+import net.cafesalam.profileuploader.benchmark.BenchmarkStep
 import net.cafesalam.profileuploader.sheets.SpreadsheetUtil
 
 object CheckDeltaUtil {
 
-  fun checkForNotableDelta(sheetsService: Sheets, width: Int, threshold: Int) {
-    val spreadsheetId = Constants.spreadsheetId
-    val range = Constants.spreadsheetDataRange
-
+  fun checkForNotableDelta(sheetsService: Sheets, width: Int, threshold: Int, spreadsheetId: String, range: String) {
     val responseValues = SpreadsheetUtil.readRangeFromSheet(sheetsService, spreadsheetId, range)
     if (responseValues.isEmpty()) {
       println("No data found")

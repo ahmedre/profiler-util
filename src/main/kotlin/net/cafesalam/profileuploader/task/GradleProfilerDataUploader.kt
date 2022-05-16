@@ -1,7 +1,6 @@
 package net.cafesalam.profileuploader.task
 
 import com.google.api.services.sheets.v4.Sheets
-import net.cafesalam.profileuploader.util.Constants
 import net.cafesalam.profileuploader.benchmark.BenchmarkParser
 import net.cafesalam.profileuploader.sheets.SpreadsheetUtil
 import java.io.File
@@ -11,10 +10,7 @@ import java.util.TimeZone
 
 object GradleProfilerDataUploader {
 
-  fun parseAndWriteBenchmarks(sheetsService: Sheets, file: File, gitHash: String) {
-    val spreadsheetId = Constants.spreadsheetId
-    val range = Constants.spreadsheetWriteRange
-
+  fun parseAndWriteBenchmarks(sheetsService: Sheets, file: File, gitHash: String, spreadsheetId: String, range: String) {
     val benchmarkParser = BenchmarkParser()
     val results = benchmarkParser.parseBenchmarkResults(file)
     val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm").apply { timeZone = TimeZone.getTimeZone("GMT") }
