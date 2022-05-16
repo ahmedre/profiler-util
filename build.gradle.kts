@@ -18,6 +18,7 @@ repositories {
 
 dependencies {
   implementation("com.squareup.okio:okio:3.1.0")
+  implementation("com.github.ajalt.clikt:clikt:3.4.2")
 
   // force update commons-codec to work around CVE in 1.11 (transitive dep to google-api-client).
   implementation("commons-codec:commons-codec:1.15")

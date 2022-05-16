@@ -1,10 +1,19 @@
 package net.cafesalam.profileuploader
 
+import com.github.ajalt.clikt.core.CliktCommand
+import com.github.ajalt.clikt.core.NoOpCliktCommand
+import com.github.ajalt.clikt.core.subcommands
+import com.github.ajalt.clikt.parameters.options.default
+import com.github.ajalt.clikt.parameters.options.option
+import com.github.ajalt.clikt.parameters.options.required
+import com.github.ajalt.clikt.parameters.types.file
+import com.github.ajalt.clikt.parameters.types.int
 import com.google.api.services.sheets.v4.Sheets
 import net.cafesalam.profileuploader.benchmark.BenchmarkChecker
 import net.cafesalam.profileuploader.benchmark.BenchmarkParser
 import net.cafesalam.profileuploader.sheets.SpreadsheetService
 import net.cafesalam.profileuploader.sheets.SpreadsheetUtil
+import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.TimeZone
@@ -61,7 +70,7 @@ class Main {
     }
   }
 
-  fun parseAndWriteBenchmarks(sheetsService: Sheets, file: String, gitHash: String) {
+  fun parseAndWriteBenchmarks(sheetsService: Sheets, file: File, gitHash: String) {
     val spreadsheetId = Constants.spreadsheetId
     val range = Constants.spreadsheetWriteRange
 
@@ -78,23 +87,28 @@ class Main {
   }
 }
 
-fun main(args: Array<String>) {
-  val sheetsService = SpreadsheetService().getSheetsClient()
-  if (args.size == 2) {
-    val firstParam = args.first()
-    val secondParam = args.last()
+class BenchmarkUtil : NoOpCliktCommand()
 
-    val main = Main()
-    val width = firstParam.toIntOrNull()
-    val threshold = secondParam.toIntOrNull()
-    if (width != null && threshold != null) {
-      main.checkForNotableDelta(sheetsService, width, threshold)
-    } else {
-      main.parseAndWriteBenchmarks(sheetsService, args.first(), args.last())
-    }
-  } else {
-    println("usage: ./gradlew run --args \"<path> <gitHash>\"")
-    println(" OR")
-    println("usage: ./gradlew run --args \"<width> <threshold>\"")
+class CheckDeltas : CliktCommand() {
+  private val width by option(help = "number of results to consider before and after each commit").int().default(5)
+  private val threshold by option(help = "threshold that marks a build a delta in build times").int().default(25)
+
+  override fun run() {
+    val sheetsService = SpreadsheetService().getSheetsClient()
+    Main().checkForNotableDelta(sheetsService, width, threshold)
   }
+}
+
+class UploadProfilingData : CliktCommand() {
+  private val gitHash by option(help = "the git hash of this commit").required()
+  private val benchmarkFile by option(help = "the gradle-profiler result csv file").file(mustExist = true).required()
+
+  override fun run() {
+    val sheetsService = SpreadsheetService().getSheetsClient()
+    Main().parseAndWriteBenchmarks(sheetsService, benchmarkFile, gitHash)
+  }
+}
+
+fun main(args: Array<String>) {
+  BenchmarkUtil().subcommands(CheckDeltas(), UploadProfilingData()).main(args)
 }

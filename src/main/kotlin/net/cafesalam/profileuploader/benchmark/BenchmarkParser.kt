@@ -5,7 +5,7 @@ import okio.source
 import java.io.File
 
 class BenchmarkParser {
-  fun parseBenchmarkResults(file: String): List<Benchmark> {
+  fun parseBenchmarkResults(file: File): List<Benchmark> {
     val items = parseBenchmarkFile(file)
     val scenarios = items["scenario"] ?: emptyList()
     val tasks = items["tasks"] ?: emptyList()
@@ -21,9 +21,9 @@ class BenchmarkParser {
     }
   }
 
-  private fun parseBenchmarkFile(file: String): Map<String, List<String>> {
+  private fun parseBenchmarkFile(file: File): Map<String, List<String>> {
     val map = mutableMapOf<String, List<String>>()
-    File(file).inputStream().source().use { source ->
+    file.inputStream().source().use { source ->
       source.buffer().use { bufferedSource ->
         while (true) {
           val line = bufferedSource.readUtf8Line() ?: break
