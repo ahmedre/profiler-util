@@ -26,10 +26,8 @@ dependencies {
   implementation("com.squareup.okio:okio:3.1.0")
   implementation("com.github.ajalt.clikt:clikt:3.4.2")
 
-  // force update commons-codec to work around CVE in 1.11 (transitive dep to google-api-client).
+  // force update commons-codec to work around CVE in 1.11 (transitive dep to google-api-services-sheets).
   implementation("commons-codec:commons-codec:1.15")
-  implementation("com.google.api-client:google-api-client:1.34.1")
-  implementation("com.google.oauth-client:google-oauth-client-jetty:1.33.2")
   implementation("com.google.apis:google-api-services-sheets:v4-rev20220411-1.32.1")
   implementation("com.google.auth:google-auth-library-oauth2-http:1.6.0")
   testImplementation(kotlin("test"))
