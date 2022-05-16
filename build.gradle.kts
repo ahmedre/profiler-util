@@ -29,6 +29,18 @@ dependencies {
   testImplementation(kotlin("test"))
 }
 
+val fatJar = task("fatJar", type = Jar::class) {
+  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+  from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+  with(tasks.jar.get() as CopySpec)
+
+  archiveClassifier.set("fat")
+
+  manifest {
+    attributes["Main-Class"] = "net.cafesalam.profileuploader.MainKt"
+  }
+}
+
 tasks.test {
   useJUnitPlatform()
 }
