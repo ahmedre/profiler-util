@@ -6,13 +6,12 @@ import com.google.api.services.sheets.v4.Sheets
 import com.google.api.services.sheets.v4.SheetsScopes
 import com.google.auth.http.HttpCredentialsAdapter
 import com.google.auth.oauth2.GoogleCredentials
-import net.cafesalam.profileuploader.Main
 import java.io.FileNotFoundException
 
 class SpreadsheetService {
 
   private fun getCredentialsFromServiceAccount(): GoogleCredentials {
-    val inputStream = Main::class.java.getResourceAsStream(CREDENTIALS_FILE_PATH)
+    val inputStream = SpreadsheetService::class.java.getResourceAsStream(CREDENTIALS_FILE_PATH)
       ?: throw FileNotFoundException("could not find: $CREDENTIALS_FILE_PATH")
     val credentials = GoogleCredentials.fromStream(inputStream).createScoped(SCOPES)
     credentials.refreshIfExpired()

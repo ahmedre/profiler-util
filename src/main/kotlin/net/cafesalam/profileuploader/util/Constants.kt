@@ -1,4 +1,4 @@
-package net.cafesalam.profileuploader
+package net.cafesalam.profileuploader.util
 
 object Constants {
   const val spreadsheetId = "1DDdAZ_FFw9QMlRqfwnxoYY-XqJglnHWz9oG1Qjo2A2c"
