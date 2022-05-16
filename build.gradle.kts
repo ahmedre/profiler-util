@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "net.cafesalam"
-version = "0.0.1-SNAPSHOT"
+version = "0.0.1"
 
 application {
   mainClass.set("net.cafesalam.profilerutil.MainKt")
