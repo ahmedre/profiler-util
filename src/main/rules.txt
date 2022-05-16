@@ -1,0 +1,7 @@
+-dontobfuscate
+-allowaccessmodification
+-keepattributes SourceFile, LineNumberTable
+
+-keep class net.cafesalam.profileuploader.MainKt {
+   public static void main(java.lang.String[]);
+}
