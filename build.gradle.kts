@@ -10,7 +10,7 @@ plugins {
 }
 
 group = "net.cafesalam"
-version = "1.0-SNAPSHOT"
+version = "0.0.1-SNAPSHOT"
 
 application {
   mainClass.set("net.cafesalam.profilerutil.MainKt")
@@ -53,7 +53,7 @@ val fatJar = task("fatJar", type = Jar::class) {
   }
 }
 
-val r8File = File("$buildDir/libs/profileuploader-r8.jar")
+val r8File = File("$buildDir/libs/profiler-util-$version-r8.jar")
 val r8Jar = task("r8Jar", type = JavaExec::class) {
   dependsOn(project.configurations["runtimeClasspath"])
   inputs.files(fatJar.outputs.files)
