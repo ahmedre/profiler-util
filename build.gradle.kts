@@ -13,7 +13,7 @@ group = "net.cafesalam"
 version = "1.0-SNAPSHOT"
 
 application {
-  mainClass.set("net.cafesalam.profileuploader.MainKt")
+  mainClass.set("net.cafesalam.profilerutil.MainKt")
 }
 
 repositories {
@@ -28,7 +28,7 @@ dependencies {
 
   // force update commons-codec to work around CVE in 1.11 (transitive dep to google-api-client).
   implementation("commons-codec:commons-codec:1.15")
-  implementation("com.google.api-client:google-api-client:1.34.0")
+  implementation("com.google.api-client:google-api-client:1.34.1")
   implementation("com.google.oauth-client:google-oauth-client-jetty:1.33.2")
   implementation("com.google.apis:google-api-services-sheets:v4-rev20220411-1.32.1")
   implementation("com.google.auth:google-auth-library-oauth2-http:1.6.0")
@@ -43,7 +43,7 @@ val fatJar = task("fatJar", type = Jar::class) {
   duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
   manifest {
-    attributes["Main-Class"] = "net.cafesalam.profileuploader.MainKt"
+    attributes["Main-Class"] = "net.cafesalam.profilerutil.MainKt"
   }
 
   val sourceClasses = sourceSets.main.get().output.classesDirs

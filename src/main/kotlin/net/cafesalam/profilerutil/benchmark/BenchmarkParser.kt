@@ -1,4 +1,4 @@
-package net.cafesalam.profileuploader.benchmark
+package net.cafesalam.profilerutil.benchmark
 
 import okio.buffer
 import okio.source

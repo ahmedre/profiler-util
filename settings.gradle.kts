@@ -1,2 +1,2 @@
-rootProject.name = "profile-uploader"
+rootProject.name = "profiler-util"
 

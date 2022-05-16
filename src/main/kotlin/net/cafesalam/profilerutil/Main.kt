@@ -1,4 +1,4 @@
-package net.cafesalam.profileuploader
+package net.cafesalam.profilerutil
 
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.core.NoOpCliktCommand
@@ -13,12 +13,12 @@ import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.file
 import com.github.ajalt.clikt.parameters.types.int
-import net.cafesalam.profileuploader.sheets.SpreadsheetService
-import net.cafesalam.profileuploader.task.CheckDeltaUtil
-import net.cafesalam.profileuploader.task.GradleProfilerDataUploader
+import net.cafesalam.profilerutil.sheets.SpreadsheetService
+import net.cafesalam.profilerutil.task.CheckDeltaUtil
+import net.cafesalam.profilerutil.task.GradleProfilerDataUploader
 import okio.ByteString.Companion.decodeBase64
 
-class BenchmarkUtil : NoOpCliktCommand()
+class ProfilerUtil : NoOpCliktCommand()
 
 class SpreadsheetOptions : OptionGroup("Spreadsheet Options:") {
   val spreadsheetId by option(help = "the id of the spreadsheet").required()
@@ -73,5 +73,5 @@ class UploadProfilingData : CliktCommand() {
 }
 
 fun main(args: Array<String>) {
-  BenchmarkUtil().subcommands(CheckDeltas(), UploadProfilingData()).main(args)
+  ProfilerUtil().subcommands(CheckDeltas(), UploadProfilingData()).main(args)
 }

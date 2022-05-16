@@ -1,4 +1,4 @@
-package net.cafesalam.profileuploader.benchmark
+package net.cafesalam.profilerutil.benchmark
 
 data class Benchmark(
   val scenario: String,

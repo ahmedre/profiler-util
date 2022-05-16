@@ -1,8 +1,8 @@
-package net.cafesalam.profileuploader.task
+package net.cafesalam.profilerutil.task
 
 import com.google.api.services.sheets.v4.Sheets
-import net.cafesalam.profileuploader.benchmark.BenchmarkParser
-import net.cafesalam.profileuploader.sheets.SpreadsheetUtil
+import net.cafesalam.profilerutil.benchmark.BenchmarkParser
+import net.cafesalam.profilerutil.sheets.SpreadsheetUtil
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date

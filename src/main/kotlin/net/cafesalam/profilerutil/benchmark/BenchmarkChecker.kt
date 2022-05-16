@@ -1,6 +1,6 @@
-package net.cafesalam.profileuploader.benchmark
+package net.cafesalam.profilerutil.benchmark
 
-import net.cafesalam.profileuploader.util.StepFit
+import net.cafesalam.profilerutil.util.StepFit
 import kotlin.math.absoluteValue
 import kotlin.math.min
 

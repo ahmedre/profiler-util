@@ -1,4 +1,4 @@
-package net.cafesalam.profileuploader.util
+package net.cafesalam.profilerutil.util
 
 import kotlin.math.pow
 import kotlin.math.sqrt
