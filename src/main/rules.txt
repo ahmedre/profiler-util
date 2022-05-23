@@ -1,7 +1,21 @@
 -dontobfuscate
 -allowaccessmodification
+-keepattributes *Annotation*,Signature,InnerClasses,EnclosingMethod
 -keepattributes SourceFile, LineNumberTable
+
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
 
 -keep class net.cafesalam.profilerutil.MainKt {
    public static void main(java.lang.String[]);
 }
+
+# gson
+-keepclassmembers class * {
+  @com.google.api.client.util.Key <fields>;
+}
+
+# google sheets
+-keep class com.google.api.services.sheets.v4.model.** { *; }
