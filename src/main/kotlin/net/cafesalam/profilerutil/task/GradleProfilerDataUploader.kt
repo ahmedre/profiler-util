@@ -16,10 +16,7 @@ object GradleProfilerDataUploader {
     val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm").apply { timeZone = TimeZone.getTimeZone("GMT") }
     val date = dateFormatter.format(Date())
 
-    val data: List<List<Any>> = listOf(
-      listOf(date) + listOf(gitHash) + results.map { it.runs.average() }
-    )
-    val response = SpreadsheetUtil.writeRangeToSheet(sheetsService, spreadsheetId, range, data)
+    val response = SpreadsheetUtil.writeRangeToSheet(sheetsService, spreadsheetId, range, date, gitHash, results)
     println("appended: ${response.updates.updatedCells} cells")
   }
 }
