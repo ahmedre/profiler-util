@@ -35,9 +35,7 @@ java -jar profileuploader-r8.jar upload-profiling-data \
    --benchmark-file <path to benchmark.csv>
 ```
 
-Note that, alternatively, you can use `--auth-string` with a base64 encoded json string of the contents of the crednetials file as well.
-
-You can also optionally pass in a `--spreadsheet-write-range` flag (defaulting to `Sheet1!A1`), if your sheet is not called "Sheet1", and if the column doesn't start at `A1`.
+You can also optionally pass in a `--spreadsheet-read-range` flag (defaulting to `Sheet1!A1:Z`), if your sheet is not called "Sheet1", and if the column doesn't start at `A1`.
 
 ### Delta Checker
 

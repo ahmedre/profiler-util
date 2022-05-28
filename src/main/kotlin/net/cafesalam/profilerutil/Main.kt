@@ -54,14 +54,11 @@ class UploadProfilingData : CliktCommand() {
   private val gitHash by option(help = "the git hash of this commit").required()
   private val notes by option(help = "notes related to this commit").default("")
   private val benchmarkFile by option(help = "the gradle-profiler result csv file").file(mustExist = true).required()
-  private val authenticationData: String by mutuallyExclusiveOptions(
-    option("--auth-file").file().convert { it.readText() },
-    option("--auth-string").convert { it.decodeBase64()?.utf8() ?: "" }
-  ).required()
+  private val authFile by option(help = "the authentication file").file(mustExist = true).convert { it.readText() }.required()
 
   override fun run() {
     val spreadsheetService = SpreadsheetService()
-    val sheetsService = spreadsheetService.getSheetsClient(authenticationData)
+    val sheetsService = spreadsheetService.getSheetsClient(authFile)
     GradleProfilerDataUploader.parseAndWriteBenchmarks(
       sheetsService,
       benchmarkFile,
