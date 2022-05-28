@@ -22,7 +22,6 @@ class ProfilerUtil : NoOpCliktCommand()
 
 class SpreadsheetOptions : OptionGroup("Spreadsheet Options:") {
   val spreadsheetId by option(help = "the id of the spreadsheet").required()
-  val spreadsheetWriteRange by option(help = "the range denoting where to begin writing").default("Sheet1!A1")
   val spreadsheetReadRange by option(help = "the range denoting where to begin reading").default("Sheet1!A1:Z")
 }
 
@@ -53,6 +52,7 @@ class UploadProfilingData : CliktCommand() {
   private val spreadsheetOptions by SpreadsheetOptions()
 
   private val gitHash by option(help = "the git hash of this commit").required()
+  private val notes by option(help = "notes related to this commit").default("")
   private val benchmarkFile by option(help = "the gradle-profiler result csv file").file(mustExist = true).required()
   private val authenticationData: String by mutuallyExclusiveOptions(
     option("--auth-file").file().convert { it.readText() },
@@ -66,8 +66,9 @@ class UploadProfilingData : CliktCommand() {
       sheetsService,
       benchmarkFile,
       gitHash,
+      notes,
       spreadsheetOptions.spreadsheetId,
-      spreadsheetOptions.spreadsheetWriteRange
+      spreadsheetOptions.spreadsheetReadRange
     )
   }
 }

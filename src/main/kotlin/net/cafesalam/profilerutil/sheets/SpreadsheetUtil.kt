@@ -20,6 +20,7 @@ object SpreadsheetUtil {
     range: String,
     date: String,
     gitHash: String,
+    notes: String,
     results: List<Benchmark>
   ): AppendValuesResponse {
     val columns = readRangeFromSheet(sheetsService, spreadsheetId, range)
@@ -35,6 +36,9 @@ object SpreadsheetUtil {
         }
         "Git Hash" -> {
           data.add(gitHash)
+        }
+        "Notes" -> {
+          data.add(notes)
         }
         else -> {
           val result = results.firstOrNull { it.scenario == header }

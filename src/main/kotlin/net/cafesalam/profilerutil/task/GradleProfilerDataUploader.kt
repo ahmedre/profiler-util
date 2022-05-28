@@ -10,13 +10,20 @@ import java.util.TimeZone
 
 object GradleProfilerDataUploader {
 
-  fun parseAndWriteBenchmarks(sheetsService: Sheets, file: File, gitHash: String, spreadsheetId: String, range: String) {
+  fun parseAndWriteBenchmarks(
+    sheetsService: Sheets,
+    file: File,
+    gitHash: String,
+    notes: String,
+    spreadsheetId: String,
+    range: String
+  ) {
     val benchmarkParser = BenchmarkParser()
     val results = benchmarkParser.parseBenchmarkResults(file)
     val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm").apply { timeZone = TimeZone.getTimeZone("GMT") }
     val date = dateFormatter.format(Date())
 
-    val response = SpreadsheetUtil.writeRangeToSheet(sheetsService, spreadsheetId, range, date, gitHash, results)
+    val response = SpreadsheetUtil.writeRangeToSheet(sheetsService, spreadsheetId, range, date, gitHash, notes, results)
     println("appended: ${response.updates.updatedCells} cells")
   }
 }
