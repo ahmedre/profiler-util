@@ -32,6 +32,7 @@ java -jar profileuploader-r8.jar upload-profiling-data \
    --spreadsheet-id <spreadsheet-id> \
    --auth-file <service_account_credentials.json> \
    --git-hash <git hash of the build> \
+   --notes <optional notes about this build> \
    --benchmark-file <path to benchmark.csv>
 ```
 

@@ -58,6 +58,7 @@ object SpreadsheetUtil {
       if (headers.isEmpty()) {
         headersToWrite.add("Date")
         headersToWrite.add("Git Hash")
+        headersToWrite.add("Notes")
       } else {
         headers.forEach { headersToWrite.add(it) }
       }
@@ -78,6 +79,7 @@ object SpreadsheetUtil {
       } else {
         data.add(0, date)
         data.add(1, gitHash)
+        data.add(2, notes)
       }
     }
 
