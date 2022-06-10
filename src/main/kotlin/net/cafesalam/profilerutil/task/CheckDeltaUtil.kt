@@ -31,8 +31,8 @@ object CheckDeltaUtil {
 
         val results = BenchmarkChecker.checkResults(before, after, threshold)
         results.forEachIndexed { index, scenarioResult ->
-          // date, git hash
-          val scenariosOffset = 2
+          // date, git hash, notes
+          val scenariosOffset = 3
           val gitHash = mergeToConsider[1]
           val scenario = scenariosRow[index + scenariosOffset]
 
