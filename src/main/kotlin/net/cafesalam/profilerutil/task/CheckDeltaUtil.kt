@@ -7,13 +7,22 @@ import net.cafesalam.profilerutil.sheets.SpreadsheetUtil
 
 object CheckDeltaUtil {
 
-  fun checkForNotableDelta(sheetsService: Sheets, width: Int, threshold: Int, spreadsheetId: String, range: String) {
+  fun checkForNotableDelta(
+    sheetsService: Sheets,
+    width: Int,
+    threshold: Int,
+    spreadsheetId: String,
+    range: String,
+    debug: Boolean
+  ) {
     val responseValues = SpreadsheetUtil.readRangeFromSheet(sheetsService, spreadsheetId, range)
     if (responseValues.isEmpty()) {
       println("No data found")
     } else {
-      responseValues.forEach { row ->
-        println(row)
+      if (debug) {
+        responseValues.forEach { row ->
+          println(row)
+        }
       }
 
       val numberOfRunsToConsider = 1 + (2 * width)

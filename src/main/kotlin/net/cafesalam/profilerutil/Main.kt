@@ -9,6 +9,7 @@ import com.github.ajalt.clikt.parameters.groups.provideDelegate
 import com.github.ajalt.clikt.parameters.groups.required
 import com.github.ajalt.clikt.parameters.options.convert
 import com.github.ajalt.clikt.parameters.options.default
+import com.github.ajalt.clikt.parameters.options.flag
 import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.options.required
 import com.github.ajalt.clikt.parameters.types.file
@@ -34,6 +35,7 @@ class CheckDeltas : CliktCommand() {
     option("--auth-file").file().convert { it.readText() },
     option("--auth-string").convert { it.decodeBase64()?.utf8() ?: "" }
   ).required()
+  private val debug by option("--debug").flag()
 
   override fun run() {
     val spreadsheetService = SpreadsheetService()
@@ -43,7 +45,8 @@ class CheckDeltas : CliktCommand() {
       width,
       threshold,
       spreadsheetOptions.spreadsheetId,
-      spreadsheetOptions.spreadsheetReadRange
+      spreadsheetOptions.spreadsheetReadRange,
+      debug
     )
   }
 }
