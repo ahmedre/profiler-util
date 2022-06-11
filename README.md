@@ -55,9 +55,10 @@ It optionally takes in the following parameters:
 ```
 --width - the number of builds before and after the build to check.
 --threshold - the threshold for which to consider something as a change.
+--debug - enable more verbose debug logging.
 ```
 
-Like the above, you can also pass in `--auth-string` with a base64 encoded json authentication file. You can also pass in a `--spreadsheet-read-range` to specify where to read the data (defaults to `Sheet1!A1:Z` - change Z if you have more than 26 scenarios, and change Sheet1 if your sheet with the data is not Sheet1).
+You can also pass in a `--spreadsheet-read-range` to specify where to read the data (defaults to `Sheet1!A1:Z` - change Z if you have more than 26 scenarios, and change Sheet1 if your sheet with the data is not Sheet1).
 
 
 [1]: https://developer.android.com/studio/build/optimize-your-build
