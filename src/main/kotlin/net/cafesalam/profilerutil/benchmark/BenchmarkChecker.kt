@@ -17,7 +17,7 @@ object BenchmarkChecker {
 
       val stepDelta = StepFit.stepFit(runsBefore, runsAfter)
       if (stepDelta.absoluteValue >= threshold) {
-        if (threshold > 0) BenchmarkStep.IMPROVEMENT
+        if (stepDelta > 0) BenchmarkStep.IMPROVEMENT
         else BenchmarkStep.REGRESSION
       } else {
         BenchmarkStep.NO_CHANGE
