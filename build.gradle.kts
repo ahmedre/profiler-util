@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-  "r8"("com.android.tools:r8:3.3.75")
+  "r8"("com.android.tools:r8:8.1.56")
   implementation("com.squareup.okio:okio:3.5.0")
   implementation("com.github.ajalt.clikt:clikt:3.5.0")
 
