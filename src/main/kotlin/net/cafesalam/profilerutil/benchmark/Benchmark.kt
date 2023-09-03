@@ -4,6 +4,6 @@ data class Benchmark(
   val scenario: String,
   val task: String,
   val value: String,
-  val warmups: List<Int>,
-  val runs: List<Int>
+  val warmups: List<Float>,
+  val runs: List<Float>
 )

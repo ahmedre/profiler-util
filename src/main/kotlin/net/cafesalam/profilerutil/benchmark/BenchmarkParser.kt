@@ -15,8 +15,8 @@ class BenchmarkParser {
     val iterations = items.filterKeys { it.startsWith("measured build #") }
 
     return scenarios.mapIndexed { index, scenarioName ->
-      val scenarioWarmups = warmups.values.map { warmup -> warmup[index].toIntOrNull() ?: 0 }
-      val scenarioIterations = iterations.values.map { iteration -> iteration[index].toIntOrNull() ?: 0 }
+      val scenarioWarmups = warmups.values.map { warmup -> warmup[index].toFloatOrNull() ?: 0f }
+      val scenarioIterations = iterations.values.map { iteration -> iteration[index].toFloatOrNull() ?: 0f }
       Benchmark(scenarioName, tasks[index], valueType[index], scenarioWarmups, scenarioIterations)
     }
   }
