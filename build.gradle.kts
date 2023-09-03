@@ -6,7 +6,7 @@ configurations {
 
 plugins {
   application
-  kotlin("jvm") version "1.7.10"
+  kotlin("jvm") version "1.9.10"
 }
 
 group = "net.cafesalam"
@@ -23,13 +23,11 @@ repositories {
 
 dependencies {
   "r8"("com.android.tools:r8:3.3.75")
-  implementation("com.squareup.okio:okio:3.2.0")
+  implementation("com.squareup.okio:okio:3.5.0")
   implementation("com.github.ajalt.clikt:clikt:3.5.0")
 
-  // force update commons-codec to work around CVE in 1.11 (transitive dep to google-api-services-sheets).
-  implementation("commons-codec:commons-codec:1.15")
-  implementation("com.google.apis:google-api-services-sheets:v4-rev20220620-2.0.0")
-  implementation("com.google.auth:google-auth-library-oauth2-http:1.11.0")
+  implementation("com.google.apis:google-api-services-sheets:v4-rev20230815-2.0.0")
+  implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
   testImplementation(kotlin("test"))
 }
 
@@ -80,5 +78,5 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile> {
-  kotlinOptions.jvmTarget = "1.8"
+  kotlin.jvmToolchain(8)
 }
