@@ -18,7 +18,7 @@ class BenchmarkParser {
       val scenarioWarmups = warmups.values.map { warmup -> warmup[index].toFloatOrNull() ?: 0f }
       val scenarioIterations = iterations.values.map { iteration -> iteration[index].toFloatOrNull() ?: 0f }
       Benchmark(scenarioName, tasks[index], valueType[index], scenarioWarmups, scenarioIterations)
-    }
+    }.filter { it.value == "total execution time" }
   }
 
   private fun parseBenchmarkFile(file: File): Map<String, List<String>> {
